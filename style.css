@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Quicksand&display=swap');
+
 body{
     background: #1B1B1B;
     display: flex;
@@ -5,18 +7,74 @@ body{
     overflow-y: hidden;
 }
 
+h4{
+    font-family: 'Quicksand', sans-serif;
+    color: white;
+    font-size: 20px;
+    font-weight: 800;
+    margin: 30px 0 5px 0;
+}
+
 #canv{
-    border: 2px;
+    border: 0px;
     border-style: solid;
     border-color: black;
-    width: 100%;
     flex: 1;
+    transition:all 0.5s;
 }
 
 .pallet{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
     flex: 0 0 auto;
     width: 100px;
     height: 99vh;
 
     background-color: #212121;
+}
+
+.picker{
+    border-radius: 35px;
+    border: none;
+    box-shadow: 0 0 10px;
+    padding: 7px;
+    width: 70px;
+    height: 70px;
+    outline: none;
+}
+
+.picker::-webkit-color-swatch {
+    border: none;
+}
+
+.reset{
+    width: 70px;
+    height: 70px;
+    border-radius: 35px;
+    margin-top: 20px;
+    box-shadow: none;
+    border: 3px;
+    border-style: solid;
+    border-color: white;
+    font-family: 'Quicksand', monospace, sans-serif;
+    font-size: 20px;
+    color: white;
+    background-color: transparent;
+    transition:all 0.4s;
+}
+
+.reset:hover{
+    
+    background-color: white;
+    color: #111;
+    box-shadow: 0 0 15px white;
+    cursor: grabbing;
+    
+}
+
+.slider{
+    width: 80px;
+    transition:all .5s;
 }

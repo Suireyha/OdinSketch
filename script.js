@@ -1,9 +1,15 @@
 const canv = document.getElementById('canv');
 const ctx = canv.getContext("2d");
+const picker = document.querySelector('.picker');
+const reset = document.querySelector('.reset');
+const slider = document.querySelector('.slider');
+
 let count = 0;
 let painting = false;
+let lineWidth = 1;
+let firstWidth;
 
-//let lineWidth = 1;
+
 ctx.lineCap = 'round';
 
 const paint = (e) => {
@@ -11,13 +17,15 @@ const paint = (e) => {
         return;
     }
 
-    ctx.lineWidth = 1;
+    ctx.lineWidth = lineWidth;
     ctx.lineCap = 'round';
+    ctx.strokeStyle = picker.value;
 
     ctx.lineTo(e.clientX, e.clientY);
     ctx.stroke();
 
 }
+
 
 canv.addEventListener('mousedown', (e)=>{
     painting = true;
@@ -30,13 +38,37 @@ canv.addEventListener('mouseup', e => {
 });
 
 canv.addEventListener('mousemove', paint);
+reset.addEventListener('click', ()=>{
+    ctx.clearRect(0, 0, canv.width, canv.height);
+})
 
 
-/*
-    I totally realise that the best way to account for the flex
-    disrupting the 'hitbox' of the canvas would just be to set
-    the width and height to compensate based on the window size,
-    however, I doubt I will have learnt much if I just impliment
-    an existing HTML element, i.e - the canvas. Maybe I'll take
-    a different approach instead?
-*/
+
+window.onload = function() {
+    firstWidth = (document.body.clientWidth) - 100;
+    canv.width = (firstWidth);
+    picker.style.backgroundColor = (picker.value);
+    picker.style.boxShadow = ( '0 0 15px ' + (picker.value));
+};
+
+window.onresize = function() {
+    adjust(document.body.clientWidth);
+    
+}
+
+function adjust(width){
+    canv.width -= (firstWidth - width) + 100;
+    firstWidth = canv.width;
+    console.log(canv.width);
+}
+
+picker.addEventListener('input', ()=>{
+    picker.style.backgroundColor = (picker.value);
+    picker.style.boxShadow = ( '0 0 15px ' + (picker.value));
+    console.log(picker.value);
+
+});
+
+slider.addEventListener('change', ()=>{
+    lineWidth = slider.value;
+});
