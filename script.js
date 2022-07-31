@@ -3,11 +3,14 @@ const ctx = canv.getContext("2d");
 const picker = document.querySelector('.picker');
 const reset = document.querySelector('.reset');
 const slider = document.querySelector('.slider');
+const penBtn = document.getElementById('pen');
+const eraBtn = document.getElementById('eraser');
 
 let count = 0;
 let painting = false;
-let lineWidth = 1;
+let lineWidth = 20;
 let firstWidth;
+let tool = true;
 
 
 ctx.lineCap = 'round';
@@ -49,6 +52,7 @@ window.onload = function() {
     canv.width = (firstWidth);
     picker.style.backgroundColor = (picker.value);
     picker.style.boxShadow = ( '0 0 15px ' + (picker.value));
+    penBtn.setAttribute('style', 'box-shadow: 0 0 5px white;');
 };
 
 window.onresize = function() {
@@ -71,4 +75,16 @@ picker.addEventListener('input', ()=>{
 
 slider.addEventListener('change', ()=>{
     lineWidth = slider.value;
+});
+
+penBtn.addEventListener('click', ()=>{
+    tool = true;
+    penBtn.setAttribute('style', 'box-shadow: 0 0 5px white;');
+    eraBtn.setAttribute('style', 'box-shadow: none;');
+});
+
+eraBtn.addEventListener('click', ()=>{
+    tool = false;
+    eraBtn.setAttribute('style', 'box-shadow: 0 0 5px white;');
+    penBtn.setAttribute('style', 'box-shadow: none;');
 });

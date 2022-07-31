@@ -32,7 +32,7 @@ h4{
     width: 100px;
     height: 99vh;
 
-    background-color: #212121;
+    background-color: #1B1B1B;
 }
 
 .picker{
@@ -77,4 +77,23 @@ h4{
 .slider{
     width: 80px;
     transition:all .5s;
+}
+
+.cont{
+    display: flex;
+    margin-top: 15px;
+}
+
+.brushBtn{
+    width: 55px;
+    text-align: center;
+    font-family: 'Quicksand', sans-serif;
+    background-color: transparent;
+    color: white;
+    border: solid 1px;
+    border-radius: 5px;
+}
+
+.brushBtn:hover{
+    cursor: grabbing;
 }
