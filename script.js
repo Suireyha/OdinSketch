@@ -1,12 +1,12 @@
 const cont = document.querySelector('.cont');
+const sizeCounter = document.querySelector('.size');
 const picker = document.querySelector('.picker');
 const reset = document.querySelector('.reset');
 const slider = document.querySelector('.slider');
-const penBtn = document.getElementById('pen');
-const eraBtn = document.getElementById('eraser');
+const eraBtn = document.querySelector('.eraser');
 
 
-
+let erasing = false;
 let canvSide = slider.value;
 let pixelSize = 510 / canvSide;
 let count = 0;
@@ -14,7 +14,10 @@ let column = [];
 let mDown;
 
 function paint(cell, overwrite){
-    if(mDown || overwrite){
+    if ((mDown || overwrite) && erasing){
+        cell.style.backgroundColor  = 'white';
+    }
+    else if(mDown || overwrite){
     cell.style.backgroundColor = picker.value;
     } 
 }
@@ -56,15 +59,48 @@ function resetCanv(){
     }
 }
 
+slider.addEventListener('input', ()=>{
+    sizeCounter.textContent = (+slider.value) + ' x ' + (+slider.value);
+});
+
 slider.addEventListener('change', ()=>{
     resetCanv();
     canvSide = slider.value
     pixelSize = 510 / canvSide; 
     buildCanv();
     appendCanv();
-    console.log(canvSide);
-    console.log(pixelSize);
 });
+
+picker.addEventListener('input', ()=>{
+    picker.style.backgroundColor = (picker.value);
+    picker.style.boxShadow = ( '0 0 15px ' + (picker.value));
+});
+
+eraBtn.addEventListener('click', ()=>{
+    
+    if(erasing == false){
+        erasing = true;
+        eraBtn.setAttribute('style', 'border-color: lime; color: lime; box-shadow: 0 0 15px lime;');
+    }
+    else{
+        erasing = false;
+        eraBtn.setAttribute('style', 'border-color: white; color: white; box-shadow: none;');
+    }
+    console.log(erasing);
+})
+
+eraBtn.addEventListener('mouseover', ()=>{
+    eraBtn.setAttribute('style', 'cursor: grabbing; color: lightgray; border-color: lightgray; box-shadow: 0 0 15px lightgray;');
+})
+
+eraBtn.addEventListener('mouseleave', ()=>{
+    if (erasing){
+        eraBtn.setAttribute('style', 'border-color: lime; color: lime; box-shadow: 0 0 15px lime;');
+    }
+    else{
+        eraBtn.setAttribute('style', 'border-color: white; color: white; box-shadow: none;');
+    }
+})
 
 //Main
 buildCanv();

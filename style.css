@@ -15,6 +15,14 @@ h4{
     margin: 30px 0 5px 0;
 }
 
+h5{
+    font-family: 'Quicksand', sans-serif;
+    color: white;
+    font-size: 10;
+    font-weight: 300;
+    margin: 5px 0 0 0;
+}
+
 .pallet{
     display: flex;
     flex-direction: column;
@@ -58,13 +66,34 @@ h4{
     transition:all 0.4s;
 }
 
+.eraser{
+    width: 70px;
+    height: 70px;
+    border-radius: 35px;
+    margin-top: 20px;
+    box-shadow: none;
+    border: 3px;
+    border-style: solid;
+    border-color: white;
+    font-family: 'Quicksand', monospace, sans-serif;
+    font-size: 20px;
+    color: white;
+    background-color: transparent;
+    transition:all 0.4s;
+}
+
 .reset:hover{
-    
-    background-color: white;
-    color: #111;
-    box-shadow: 0 0 15px white;
     cursor: grabbing;
-    
+    color: red;
+    border-color: red;
+    box-shadow: 0 0 15px red;
+}
+
+.eraser:hover{
+    cursor: grabbing;
+    color: lightgray;
+    border-color: lightgray;
+    box-shadow: 0 0 15px lightgray;
 }
 
 .slider{
