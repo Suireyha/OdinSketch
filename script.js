@@ -71,3 +71,8 @@ buildCanv();
 appendCanv();
 document.addEventListener('mousedown', ()=>{mDown = true;});
 document.addEventListener('mouseup', ()=>{mDown = false;});
+reset.addEventListener('click', ()=>{
+    resetCanv(); 
+    buildCanv();
+    appendCanv();
+});
