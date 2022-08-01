@@ -15,14 +15,6 @@ h4{
     margin: 30px 0 5px 0;
 }
 
-#canv{
-    border: 0px;
-    border-style: solid;
-    border-color: black;
-    flex: 1;
-    transition:all 0.5s;
-}
-
 .pallet{
     display: flex;
     flex-direction: column;
@@ -38,6 +30,7 @@ h4{
 .picker{
     border-radius: 35px;
     border: none;
+    background-color: black;
     box-shadow: 0 0 10px;
     padding: 7px;
     width: 70px;
@@ -80,20 +73,20 @@ h4{
 }
 
 .cont{
+    
+    align-self: center;
     display: flex;
-    margin-top: 15px;
+    overflow: hidden;
+    flex-wrap:wrap;
+    width: 510px;
+    height: 510px;
+    gap: 0;
 }
 
-.brushBtn{
-    width: 55px;
-    text-align: center;
-    font-family: 'Quicksand', sans-serif;
-    background-color: transparent;
-    color: white;
-    border: solid 1px;
-    border-radius: 5px;
-}
-
-.brushBtn:hover{
-    cursor: grabbing;
+.pixel{
+    width:30px;
+    height:30px;
+    background-color: white;
+    display: inline;
+    margin: none;
 }

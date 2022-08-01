@@ -1,90 +1,73 @@
-const canv = document.getElementById('canv');
-const ctx = canv.getContext("2d");
+const cont = document.querySelector('.cont');
 const picker = document.querySelector('.picker');
 const reset = document.querySelector('.reset');
 const slider = document.querySelector('.slider');
 const penBtn = document.getElementById('pen');
 const eraBtn = document.getElementById('eraser');
 
+
+
+let canvSide = slider.value;
+let pixelSize = 510 / canvSide;
 let count = 0;
-let painting = false;
-let lineWidth = 20;
-let firstWidth;
-let tool = true;
+let column = [];
+let mDown;
 
+function paint(cell, overwrite){
+    if(mDown || overwrite){
+    cell.style.backgroundColor = picker.value;
+    } 
+}
 
-ctx.lineCap = 'round';
+function buildCanv(){
 
-const paint = (e) => {
-    if(!painting){
-        return;
+    cont.setAttribute('style', 'width: ' + (+canvSide*pixelSize) + 'px; height: ' + (+canvSide*pixelSize) + 'px;');
+
+    for (var x = 0; x < canvSide; x++){
+        let row = [];
+        for (var i = 0; i < canvSide; i++, count++){
+                row[i] = document.createElement('div');
+                row[i].classList.add('pixel');
+                row[i].setAttribute('id', (+count));
+                row[i].setAttribute('style', 'width: ' + (+pixelSize) + 'px; height: ' + (pixelSize) + 'px;');
+                row[i].addEventListener('mouseover', (e)=>{paint(e.target);});
+                row[i].addEventListener('click', (e)=>{paint(e.target, true);})
+                if(i == (canvSide - 1)){
+                    row[i].setAttribute('style', 'display: inline-block; width: ' + (+pixelSize) + 'px; height: ' + (pixelSize) + 'px;');
+                }
+            }
+        column[x] = row;
     }
-
-    ctx.lineWidth = lineWidth;
-    ctx.lineCap = 'round';
-    ctx.strokeStyle = picker.value;
-
-    ctx.lineTo(e.clientX, e.clientY);
-    ctx.stroke();
-
 }
 
-
-canv.addEventListener('mousedown', (e)=>{
-    painting = true;
-});
-
-canv.addEventListener('mouseup', e => {
-    painting = false;
-    ctx.stroke();
-    ctx.beginPath();
-});
-
-canv.addEventListener('mousemove', paint);
-reset.addEventListener('click', ()=>{
-    ctx.clearRect(0, 0, canv.width, canv.height);
-})
-
-
-
-window.onload = function() {
-    firstWidth = (document.body.clientWidth) - 100;
-    canv.width = (firstWidth);
-    picker.style.backgroundColor = (picker.value);
-    picker.style.boxShadow = ( '0 0 15px ' + (picker.value));
-    penBtn.setAttribute('style', 'box-shadow: 0 0 5px white;');
-};
-
-window.onresize = function() {
-    adjust(document.body.clientWidth);
-    
+function appendCanv(){
+    for (var x = 0; x < canvSide; x++){
+        for (var y = 0; y < canvSide; y++){
+            cont.appendChild(column[x][y]);
+        }
+    }
 }
 
-function adjust(width){
-    canv.width -= (firstWidth - width) + 100;
-    firstWidth = canv.width;
-    console.log(canv.width);
+function resetCanv(){
+    for (var i = 0; i < canvSide; i++){
+        for (var x = 0; x < canvSide; x++){
+            cont.removeChild(column[i][x]);        
+        }
+    }
 }
-
-picker.addEventListener('input', ()=>{
-    picker.style.backgroundColor = (picker.value);
-    picker.style.boxShadow = ( '0 0 15px ' + (picker.value));
-    console.log(picker.value);
-
-});
 
 slider.addEventListener('change', ()=>{
-    lineWidth = slider.value;
+    resetCanv();
+    canvSide = slider.value
+    pixelSize = 510 / canvSide; 
+    buildCanv();
+    appendCanv();
+    console.log(canvSide);
+    console.log(pixelSize);
 });
 
-penBtn.addEventListener('click', ()=>{
-    tool = true;
-    penBtn.setAttribute('style', 'box-shadow: 0 0 5px white;');
-    eraBtn.setAttribute('style', 'box-shadow: none;');
-});
-
-eraBtn.addEventListener('click', ()=>{
-    tool = false;
-    eraBtn.setAttribute('style', 'box-shadow: 0 0 5px white;');
-    penBtn.setAttribute('style', 'box-shadow: none;');
-});
+//Main
+buildCanv();
+appendCanv();
+document.addEventListener('mousedown', ()=>{mDown = true;});
+document.addEventListener('mouseup', ()=>{mDown = false;});
