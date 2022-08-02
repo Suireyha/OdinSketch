@@ -1,21 +1,34 @@
 const cont = document.querySelector('.cont');
+const rainbow = document.querySelector('.cycle');
 const sizeCounter = document.querySelector('.size');
 const picker = document.querySelector('.picker');
 const reset = document.querySelector('.reset');
 const slider = document.querySelector('.slider');
 const eraBtn = document.querySelector('.eraser');
 
-
+let colCount = 0;
 let erasing = false;
 let canvSide = slider.value;
 let pixelSize = 510 / canvSide;
 let count = 0;
 let column = [];
 let mDown;
+let RGB = [225, 45, 45];
+let cycling = false;
+let red = 204;
+let blue = 80;
+let green = 80;
 
 function paint(cell, overwrite){
     if ((mDown || overwrite) && erasing){
         cell.style.backgroundColor  = 'white';
+    }
+    else if ((mDown || overwrite) && cycling){
+        cell.style.backgroundColor = 
+        "rgb(" + (+RGB[0]) + "," + (+RGB[1]) + "," + (+RGB[2]) +")";
+        
+        //Either red, blue or green will increase/decrease based on colCount, use switch statement
+        //Add/Subtract 200 at a time in increments of 40 - meaning 5 pixels for color change (Maybe change on canv size?)
     }
     else if(mDown || overwrite){
     cell.style.backgroundColor = picker.value;
@@ -89,6 +102,20 @@ eraBtn.addEventListener('click', ()=>{
     console.log(erasing);
 })
 
+rainbow.addEventListener('click', ()=>{
+    
+    if(cycling == false){
+        cycling = true;
+        rainbow.setAttribute('style', 'border-color: lime; color: lime; box-shadow: 0 0 15px lime;');
+    }
+    else{
+        cycling = false;
+        rainbow.setAttribute('style', 'border-color: white; color: white; box-shadow: none;');
+    }
+    console.log(cycling);
+})
+
+
 eraBtn.addEventListener('mouseover', ()=>{
     eraBtn.setAttribute('style', 'cursor: grabbing; color: lightgray; border-color: lightgray; box-shadow: 0 0 15px lightgray;');
 })
@@ -99,6 +126,23 @@ eraBtn.addEventListener('mouseleave', ()=>{
     }
     else{
         eraBtn.setAttribute('style', 'border-color: white; color: white; box-shadow: none;');
+    }
+})
+
+eraBtn.addEventListener('mouseover', ()=>{
+    eraBtn.setAttribute('style', 'cursor: grabbing; color: lightgray; border-color: lightgray; box-shadow: 0 0 15px lightgray;');
+})
+
+rainbow.addEventListener('mouseover', ()=>{
+    rainbow.setAttribute('style', 'cursor: grabbing; color: lightgray; border-color: lightgray; box-shadow: 0 0 15px lightgray;');
+})
+
+rainbow.addEventListener('mouseleave', ()=>{
+    if (cycling){
+        rainbow.setAttribute('style', 'border-color: lime; color: lime; box-shadow: 0 0 15px lime;');
+    }
+    else{
+        rainbow.setAttribute('style', 'border-color: white; color: white; box-shadow: none;');
     }
 })
 

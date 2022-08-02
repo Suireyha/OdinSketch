@@ -23,6 +23,22 @@ h5{
     margin: 5px 0 0 0;
 }
 
+button{
+    width: 70px;
+    height: 70px;
+    border-radius: 35px;
+    margin-top: 20px;
+    box-shadow: none;
+    border: 3px;
+    border-style: solid;
+    border-color: white;
+    font-family: 'Quicksand', monospace, sans-serif;
+    font-size: 20px;
+    color: white;
+    background-color: transparent;
+    transition:all 0.4s;
+}
+
 .pallet{
     display: flex;
     flex-direction: column;
@@ -48,38 +64,6 @@ h5{
 
 .picker::-webkit-color-swatch {
     border: none;
-}
-
-.reset{
-    width: 70px;
-    height: 70px;
-    border-radius: 35px;
-    margin-top: 20px;
-    box-shadow: none;
-    border: 3px;
-    border-style: solid;
-    border-color: white;
-    font-family: 'Quicksand', monospace, sans-serif;
-    font-size: 20px;
-    color: white;
-    background-color: transparent;
-    transition:all 0.4s;
-}
-
-.eraser{
-    width: 70px;
-    height: 70px;
-    border-radius: 35px;
-    margin-top: 20px;
-    box-shadow: none;
-    border: 3px;
-    border-style: solid;
-    border-color: white;
-    font-family: 'Quicksand', monospace, sans-serif;
-    font-size: 20px;
-    color: white;
-    background-color: transparent;
-    transition:all 0.4s;
 }
 
 .reset:hover{
@@ -110,6 +94,7 @@ h5{
     width: 510px;
     height: 510px;
     gap: 0;
+    box-shadow: 0 0 5px white;
 }
 
 .pixel{
@@ -118,4 +103,5 @@ h5{
     background-color: white;
     display: inline;
     margin: none;
+    transition:all .1s;
 }
