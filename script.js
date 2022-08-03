@@ -7,13 +7,14 @@ const slider = document.querySelector('.slider');
 const eraBtn = document.querySelector('.eraser');
 
 let colCount = 0;
+let colIteration = 0;
 let erasing = false;
 let canvSide = slider.value;
 let pixelSize = 510 / canvSide;
 let count = 0;
 let column = [];
 let mDown;
-let RGB = [225, 45, 45];
+let RGB = [245, 45, 45];
 let cycling = false;
 let red = 204;
 let blue = 80;
@@ -26,7 +27,39 @@ function paint(cell, overwrite){
     else if ((mDown || overwrite) && cycling){
         cell.style.backgroundColor = 
         "rgb(" + (+RGB[0]) + "," + (+RGB[1]) + "," + (+RGB[2]) +")";
-        
+        colIteration++;
+
+        switch (colCount){
+
+            case 0:
+                RGB[1] += 40;
+                break;
+            case 1:
+                RGB[0] -= 40;
+                break;
+            case 2:
+                RGB[2] += 40;
+                break;
+            case 3:
+                RGB[1] -= 40;
+                break;
+            case 4:
+                RGB[0] += 40;
+                break;
+            case 5:
+                RGB[2] -= 40;
+                colCount = 0;
+                RGB = [245, 45, 45];
+                break;
+            default:
+                console.log("ERROR: colCount = " + colCount);
+        }
+
+        if (colIteration % 5 == 0){
+            colCount++;
+            console.log("R= " + (+RGB[0]) + ", G= " + (+RGB[1]) + ", B= " + (+RGB[0]));
+        }
+
         //Either red, blue or green will increase/decrease based on colCount, use switch statement
         //Add/Subtract 200 at a time in increments of 40 - meaning 5 pixels for color change (Maybe change on canv size?)
     }
