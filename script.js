@@ -127,6 +127,8 @@ eraBtn.addEventListener('click', ()=>{
     if(erasing == false){
         erasing = true;
         eraBtn.setAttribute('style', 'border-color: lime; color: lime; box-shadow: 0 0 15px lime;');
+        cycling = false;
+        rainbow.setAttribute('style', 'border-color: white; color: white; box-shadow: none;');
     }
     else{
         erasing = false;
@@ -140,10 +142,13 @@ rainbow.addEventListener('click', ()=>{
     if(cycling == false){
         cycling = true;
         rainbow.setAttribute('style', 'border-color: lime; color: lime; box-shadow: 0 0 15px lime;');
+        erasing = false;
+        eraBtn.setAttribute('style', 'border-color: white; color: white; box-shadow: none;');
     }
     else{
         cycling = false;
         rainbow.setAttribute('style', 'border-color: white; color: white; box-shadow: none;');
+        
     }
     console.log(cycling);
 })
@@ -188,4 +193,8 @@ reset.addEventListener('click', ()=>{
     resetCanv(); 
     buildCanv();
     appendCanv();
+    erasing = false;
+    cycling = false;
+    rainbow.setAttribute('style', 'border-color: white; color: white; box-shadow: none;');
+    eraBtn.setAttribute('style', 'border-color: white; color: white; box-shadow: none;');
 });
